@@ -15,7 +15,35 @@ class Functor f => Applicative f where
 ```
 
 La función `pure` dota de un contexto simple a un valor o una función, mientras
-que la función `(<*>)` toma el papel análogo a `fmap`. Veamos una instancia:
+que la función `(<*>)` toma el papel análogo a `fmap`.
+Los funtores aplicativos deben cumplir las siguientes propiedades:
+
+Identidad:
+
+``` haskell
+pure id <*> v = v
+```
+
+Composición:
+
+``` haskell
+pure (.) <*> u <*> v <*> w = u <*> (v <*> w)
+```
+
+Homomorfismo:
+
+``` haskell
+pure f <*> pure x = pure (f x)
+```
+
+Intercambio:
+
+``` haskell
+u <*> pure y = pure ($ y) <*> u
+```
+
+
+Veamos una instancia:
 
 ``` haskell
 instance Applicative Maybe where
